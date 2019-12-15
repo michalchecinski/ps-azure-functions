@@ -1,0 +1,17 @@
+name: Deploy functions
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: mch-func-automation
+        publish-profile: ${{ secrets.SCM_CREDENTIALS }}
