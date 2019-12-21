@@ -10,10 +10,7 @@ function SendSlackMessage {
 
     $BodyTemplate = @"
         {
-            "channel": "#server",
-            "username": "Azure Functions",
             "text": "*Deploy API is down* \n $message \nTime: $(Get-Date).",
-            "icon_emoji":":ghost:"
         }
 "@
 
