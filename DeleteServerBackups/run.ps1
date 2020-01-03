@@ -25,7 +25,7 @@ $containers = Get-AzStorageContainer -Prefix "backup-" -Context $stContext
 
 Write-Host ($containers | Select-Object Name)
 
-$message = ""
+$message = ''
 
 foreach ($container in $containers) {
 
@@ -40,7 +40,7 @@ foreach ($container in $containers) {
                                   [System.Globalization.DateTimeStyles]::None,
                                   [ref]$dirDate))
     {
-        if (([DateTime]::Today - $dirDate).TotalDays -ge 31)
+        if (([DateTime]::Today - $dirDate).TotalDays -ge 14)
         {
             $containerName = $container.Name
             $message = $message + "$containerName\n"
@@ -51,6 +51,9 @@ foreach ($container in $containers) {
     }
 }
 
-SendSlackMessage $message
+if($message)
+{
+    SendSlackMessage $message
+}
 
 Write-Host "Ended"
