@@ -18,7 +18,7 @@ function SendSlackMessage {
 
 }
 
-$stKey = "Rf0SGMDXSVrqBhW+gmxyQ3h5sZjWKdPuzQifXh9gRtPbXx8iBbcglDODfNdH7dhg9pjaIgcHAtJMjoQgY9VSKw=="
+$stKey = $env:LocalServerBackupStorageKey
 $stContext = New-AzStorageContext -StorageAccountName "hasslocalserverbackup" -StorageAccountKey $stKey
 
 $containers = Get-AzStorageContainer -Prefix "backup-" -Context $stContext
