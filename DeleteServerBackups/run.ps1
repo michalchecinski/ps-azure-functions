@@ -18,17 +18,14 @@ function SendSlackMessage {
 
 }
 
-$stKey = $env:LocalServerBackupStorageKey
+$stKey = "Rf0SGMDXSVrqBhW+gmxyQ3h5sZjWKdPuzQifXh9gRtPbXx8iBbcglDODfNdH7dhg9pjaIgcHAtJMjoQgY9VSKw=="
 $stContext = New-AzStorageContext -StorageAccountName "hasslocalserverbackup" -StorageAccountKey $stKey
 
 $containers = Get-AzStorageContainer -Prefix "backup-" -Context $stContext
 
 Write-Host ($containers | Select-Object Name)
 
-if ($containers.count -le 6 ) {
-    $message = "Remained only $($containers.count) containers. Not removing anything."
-}
-else {
+if ($containers.count -gt 6 ) {
     $message = ''
 
     foreach ($container in $containers) {
@@ -39,7 +36,7 @@ else {
         [datetime]$dirDate = New-Object DateTime
 
         # Check that directory name could be parsed to DateTime
-        if ([DateTime]::TryParseExact($dirName.Name, "yyyy-MM-dd",
+        if ([DateTime]::TryParseExact($dirName, "yyyy-MM-dd",
                 [System.Globalization.CultureInfo]::InvariantCulture,
                 [System.Globalization.DateTimeStyles]::None,
                 [ref]$dirDate)) {
@@ -52,10 +49,10 @@ else {
             }
         }
     }
-}
 
-if ($message) {
-    SendSlackMessage $message
+    if ($message) {
+        SendSlackMessage $message
+    }
 }
 
 Write-Host "Ended"
