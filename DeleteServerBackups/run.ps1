@@ -47,7 +47,7 @@ if ($containers.count -gt 5 ) {
                     $message = $message + "$containerName\n"
 
                     Write-Host "Removing $containerName"
-                    Remove-AzStorageContainer -Name $containerName -StorageAccountKey $stKey -Force
+                    Remove-AzStorageContainer -Name $containerName -Context $stContext -Force
                 }
             }
         }
