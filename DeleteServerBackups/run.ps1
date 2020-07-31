@@ -42,7 +42,7 @@ if ($containers.count -gt 5 ) {
                     [System.Globalization.CultureInfo]::InvariantCulture,
                     [System.Globalization.DateTimeStyles]::None,
                     [ref]$dirDate)) {
-                if (([DateTime]::Today - $dirDate).TotalDays -ge 14) {
+                if (([DateTime]::Today - $dirDate).TotalDays -gt 14) {
                     $containerName = $container.Name
                     $message = $message + "$containerName\n"
 
